@@ -83,39 +83,98 @@ def lscasm(op):
     s=''
     ilen=10
     if op=='A':
-        s=pad("Add",ilen)+"# Add %d -> %d"%(stack[-1],stack[-1]+stack[-2])
+        if(len(stack)==0):
+            s="Add"
+        elif(len(stack)==1):
+            s=pad("Add",ilen)+"# Add %d -> ?"%(stack[-1])
+        else:
+            s=pad("Add",ilen)+"# Add %d -> %d"%(stack[-1],stack[-1]+stack[-2])
     elif op=='B':
         s="Break"
     elif op=='C':
-        s=pad("Ret",ilen)+"# Ret %d"%(stack[-1])
+        if(len(stack)==0):
+            s="Ret"
+        else:
+            s=pad("Ret",ilen)+"# Ret %d"%(stack[-1])
     elif op=='D':
         s="Del"
     elif op=='E':
         s="Erase"
     elif op=='F':
-        s=pad("Find",ilen)+"# Find %d -> %d"%(stack[-1],stack[-2-stack[-1]])
+        if(len(stack)==0):
+            s="Find"
+        else:
+            try:
+                s=pad("Find",ilen)+"# Find %d -> %d"%(stack[-1],stack[-2-stack[-1]])
+            except:
+                s=pad("Find",ilen)+"# Find %d -> ?"%(stack[-1])
     elif op=='G':
-        s=pad("Jmp",ilen)+"# Jmp %d -> %d"%(stack[-1],ip+stack[-1]+1)
+        if(len(stack)==0):
+            s="Jmp"
+        else:
+            s=pad("Jmp",ilen)+"# Jmp %d -> %d"%(stack[-1],ip+stack[-1]+1)
     elif op=='H':
-        s=pad("Hop",ilen)+"# Hop %d -> %d"%(stack[-1],stack[-2-stack[-1]])
+        if(len(stack)==0):
+            s="Hop"
+        else:
+            try:
+                s=pad("Hop",ilen)+"# Hop %d -> %d"%(stack[-1],stack[-2-stack[-1]])
+            except:
+                s=pad("Hop",ilen)+"# Hop %d -> ?"%(stack[-1])
     elif op=='I':
-        s=pad("Intp",ilen)+"# Intp %d"%(stack[-1])
+        if(len(stack)==0):
+            s="Intp"
+        else:
+            s=pad("Intp",ilen)+"# Intp %d"%(stack[-1])
     elif op=='J':
-        s=pad("Cmp",ilen)+"# Cmp %d,%d -> %d"%(stack[-2],stack[-1],cmp(stack[-2],stack[-1]))
+        if(len(stack)==0):
+            s="Cmp"
+        elif(len(stack)==1):
+            s=pad("Cmp",ilen)+"# Cmp %d,? -> ?"%(stack[-1])
+        else:
+            s=pad("Cmp",ilen)+"# Cmp %d,%d -> %d"%(stack[-2],stack[-1],cmp(stack[-2],stack[-1]))
     elif op=='K':
-        s=pad("Store",ilen)+"# Store %d,%d"%(stack[-1],stack[-2])
+        if(len(stack)==0):
+            s="Store"
+        elif(len(stack)==1):
+            s=pad("Store",ilen)+"# Store ?,%d"%(stack[-1])
+        else:
+            s=pad("Store",ilen)+"# Store %d,%d"%(stack[-1],stack[-2])
     elif op=='M':
-        s=pad("Mul",ilen)+"# Mul %d -> %d"%(stack[-1],stack[-1]*stack[-2])
+        if(len(stack)==0):
+            s="Mul"
+        elif(len(stack)==1):
+            s=pad("Mul",ilen)+"# Mul %d -> ?"%(stack[-1])
+        else:
+            s=pad("Mul",ilen)+"# Mul %d -> %d"%(stack[-1],stack[-1]*stack[-2])
     elif op=='P':
-        s=pad("Strp",ilen)+"# Strp "+chr(stack[-1]%128)
+        if(len(stack)==0):
+            s="Strp"
+        else:
+            s=pad("Strp",ilen)+"# Strp "+chr(stack[-1]%128)
     elif op=='R':
         s="Kill"
     elif op=='S':
-        s=pad("Sub",ilen)+"# Sub %d -> %d"%(stack[-1],stack[-2]-stack[-1])
+        if(len(stack)==0):
+            s="Sub"
+        elif(len(stack)==1):
+            s=pad("Sub",ilen)+"# Sub %d -> ?"%(stack[-1])
+        else:
+            s=pad("Sub",ilen)+"# Sub %d -> %d"%(stack[-1],stack[-2]-stack[-1])
     elif op=='V':
-        s=pad("Div",ilen)+"# Div %d -> %d"%(stack[-1],stack[-2]-stack[-1])
+        if(len(stack)==0):
+            s="Div"
+        elif(len(stack)==1):
+            s=pad("Div",ilen)+"# Div %d -> ?"%(stack[-1])
+        else:
+            s=pad("Div",ilen)+"# Div %d -> %d"%(stack[-1],stack[-2]/stack[-1])
     elif op=='Z':#Z? conditional jump
-        s=pad("Jz",ilen)+"# Jz %d -> %d  "%(stack[-1],ip+stack[-1]+1)+"(Taken)" if stack[-2]==0 else "(Not taken)"
+        if(len(stack)==0):
+            s="Jz"
+        elif(len(stack)==1):
+            s=pad("Jz",ilen)+"# Jz %d -> %p  "%(stack[-1],ip+stack[-1]+1)+"(? taken)"
+        else:
+            s=pad("Jz",ilen)+"# Jz %d -> %d  "%(stack[-1],ip+stack[-1]+1)+"(Taken)" if stack[-2]==0 else "(Not taken)"
     elif op=='a':
         s="Push 0"
     elif op=='b':

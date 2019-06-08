@@ -1,0 +1,114 @@
+<html>
+	<head>
+		<title>
+			Ariana's LSCASM Documentation
+		</title>
+	</head>
+	<body>
+		<h1>LSCASM Documentation</h1>
+		<p>LSCASM is a assembly langauge for LSCVM in CDDC 2019</p>
+		<h2>LSC details</h2>
+		<p>LSC has 3 different data regions, the code(rx), a stack(rw), and a heap(w)</p>
+		<p>There is 2 printing instructions, one that prints a character and another that prints a signed integer</p>
+		<p>There are instructions that can change the instruction pointer(ip), which allows jumping</p>
+		<p>There is no registers, the stack is the only rw memory location</p>
+		<p>There are basic push and pop operations along with some arithematic operations that operate on the top 2 elements of the stack. Some operation allows for arbituary read into the stack, although it pops the element and pushes it on top</p>
+		<h2>LSCASM format</h2>
+		<p>The format for instructions is <tt>inst arg1,arg2</tt></p>
+		<p>Table of instructions:</p>
+		<table>
+			<tr>
+				<th>inst</th>
+				<th>arg1</th>
+				<td>arg2</th>
+				<th>desc</th>
+				<th>op code</th>
+			</tr>
+			<tr>
+				<td>Add</td>
+				<td></td>
+				<td></td>
+				<td>Pops 2 elements off stack, and pushes the sum onto the stack</td>
+				<td>A</td>
+			</tr>
+			<tr>
+				<td>Break</td>
+				<td></td>
+				<td></td>
+				<td>Stops program execution</td>
+				<td>B</td>
+			</tr>
+			<tr>
+				<td>Ret</td>
+				<td></td>
+				<td></td>
+				<td>Pops an element off stack and resume execution from the location given by popped element</td>
+				<td>C</td>
+			</tr>
+			<tr>
+				<td>Del</td>
+				<td></td>
+				<td></td>
+				<td>Pops an element off stack</td>
+				<td>D</td>
+			</tr>
+			<tr>
+				<td>Erase</td>
+				<td></td>
+				<td></td>
+				<td>Replaces the top element of stack with 0</td>
+				<td>E</td>
+			</tr>
+			<tr>
+				<td>Find</td>
+				<td></td>
+				<td></td>
+				<td>Pops an element </td>
+				<td>F</td>
+			</tr>
+			<tr>
+				<td>inst</td>
+				<td>arg1</td>
+				<td>arg2</td>
+				<td>desc</td>
+				<td>op code</td>
+			</tr>
+			<tr>
+				<td>inst</td>
+				<td>arg1</td>
+				<td>arg2</td>
+				<td>desc</td>
+				<td>op code</td>
+			</tr>
+			<tr>
+				<td>inst</td>
+				<td>arg1</td>
+				<td>arg2</td>
+				<td>desc</td>
+				<td>op code</td>
+			</tr>
+			<tr>
+				<td>inst</td>
+				<td>arg1</td>
+				<td>arg2</td>
+				<td>desc</td>
+				<td>op code</td>
+			</tr>
+			<tr>
+				<td>inst</td>
+				<td>arg1</td>
+				<td>arg2</td>
+				<td>desc</td>
+				<td>op code</td>
+			</tr>
+			<tr>
+				<td>inst</td>
+				<td>arg1</td>
+				<td>arg2</td>
+				<td>desc</td>
+				<td>op code</td>
+			</tr>
+		</table>
+		<p>P.S. If you have better suggestion for instruction names that relate to the op code do ping me</p>
+	</body>
+</html>
