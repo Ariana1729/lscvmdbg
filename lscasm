@@ -1,10 +1,9 @@
 push 1
-push 2
+push    2
 add
-add 1
-jmp abcd1342-3
-jmp    #hi
-jmp 1
-store 1,1
-store 2
-strp 'efcwec\'er\\'
+ add 1
+   LABEL1:label:#test
+jmp 0
+store 1,  1
+ store   2
+strp 'efc wec\'er\\'

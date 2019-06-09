@@ -16,6 +16,9 @@
 		<p>Popped elements go to i,j,k...(in order) for the explanation</p>
 		<h2>LSCASM format</h2>
 		<p>The format for instructions is <tt>inst arg1,arg2</tt></p>
+		<p>Labels should end with ':'</p>
+		<p>Comments start with # and last till the end of the line</p>
+		<p>There isnt multiline comments</p>
 		<p>Table of instructions:</p>
 		<table>
 			<tr>
@@ -100,7 +103,7 @@
 				<td>Strp</td>
 				<td></td>
 				<td>Pops stack and prints i%128 as a ascii character</td>
-				<td></td>
+				<td>P</td>
 			</tr>
 			<tr>
 				<td>Sub</td>
@@ -118,7 +121,7 @@
 				<td>Jz</td>
 				<td></td>
 				<td>Pops stack twice, increments ip by i if j==0</td>
-				<td></td>
+				<td>Z</td>
 			</tr>
 			<tr>
 				<td>Push</td>
@@ -179,13 +182,7 @@
 				<td>Int</td>
 				<td>Pops stack, pushes cmp(i,arg1)</td>
 				<td></td>
-			</tr>
-			<tr>
-				<td>Cmpn</td>
-				<td>Int</td>
-				<td>Pushes cmp(top element of stack,arg1)</td>
-				<td></td>
-			</tr>
+			</tr>		
 			<tr>
 				<td>Store</td>
 				<td>Int</td>
@@ -217,21 +214,9 @@
 				<td></td>
 			</tr>
 			<tr>
-				<td>Subi</td>
-				<td>Int</td>
-				<td>Pops stack, pushes arg1-i</td>
-				<td></td>
-			</tr>
-			<tr>
 				<td>Div</td>
 				<td>Int</td>
 				<td>Pops stack, pushes i/arg1</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>Divi</td>
-				<td>Int</td>
-				<td>Pops stack, pushes arg1/i</td>
 				<td></td>
 			</tr>
 			<tr>
@@ -248,5 +233,7 @@
 			</tr>
 		</table>
 		<p>P.S. If you have better suggestion for instruction names that relate to the op code do ping me</p>
+		<h2>Assembler details</h2>
+		Clsm is an intermediate language that has the format inst|arg1,type|arg2,type|..., makes it easier to parse
 	</body>
 </html>
