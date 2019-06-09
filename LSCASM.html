@@ -13,27 +13,25 @@
 		<p>There are instructions that can change the instruction pointer(ip), which allows jumping</p>
 		<p>There is no registers, the stack is the only rw memory location</p>
 		<p>There are basic push and pop operations along with some arithematic operations that operate on the top 2 elements of the stack. Some operation allows for arbituary read into the stack, although it pops the element and pushes it on top</p>
+		<p>Popped elements go to i,j,k...(in order) for the explanation</p>
 		<h2>LSCASM format</h2>
 		<p>The format for instructions is <tt>inst arg1,arg2</tt></p>
 		<p>Table of instructions:</p>
 		<table>
 			<tr>
 				<th>inst</th>
-				<th>arg1</th>
-				<td>arg2</th>
+				<th>args</th>
 				<th>desc</th>
 				<th>op code</th>
 			</tr>
 			<tr>
 				<td>Add</td>
 				<td></td>
-				<td></td>
-				<td>Pops 2 elements off stack, and pushes the sum onto the stack</td>
+				<td>Pops stack twice, and pushes i+j</td>
 				<td>A</td>
 			</tr>
 			<tr>
 				<td>Break</td>
-				<td></td>
 				<td></td>
 				<td>Stops program execution</td>
 				<td>B</td>
@@ -41,13 +39,11 @@
 			<tr>
 				<td>Ret</td>
 				<td></td>
-				<td></td>
-				<td>Pops an element off stack and resume execution from the location given by popped element</td>
+				<td>Pops stack and continues execution at ip=i</td>
 				<td>C</td>
 			</tr>
 			<tr>
 				<td>Del</td>
-				<td></td>
 				<td></td>
 				<td>Pops an element off stack</td>
 				<td>D</td>
@@ -55,58 +51,200 @@
 			<tr>
 				<td>Erase</td>
 				<td></td>
-				<td></td>
 				<td>Replaces the top element of stack with 0</td>
 				<td>E</td>
 			</tr>
 			<tr>
 				<td>Find</td>
 				<td></td>
-				<td></td>
-				<td>Pops an element </td>
+				<td>Pops stack and pushes the ith element of the stack</td>
 				<td>F</td>
 			</tr>
 			<tr>
-				<td>inst</td>
-				<td>arg1</td>
-				<td>arg2</td>
-				<td>desc</td>
-				<td>op code</td>
+				<td>Jmp</td>
+				<td></td>
+				<td>Pops stack and increments ip by i</td>
+				<td>G</td>
 			</tr>
 			<tr>
-				<td>inst</td>
-				<td>arg1</td>
-				<td>arg2</td>
-				<td>desc</td>
-				<td>op code</td>
+				<td>Hop</td>
+				<td></td>
+				<td>Pops stack and moves ith element of stack to the top</td>
+				<td>H</td>
 			</tr>
 			<tr>
-				<td>inst</td>
-				<td>arg1</td>
-				<td>arg2</td>
-				<td>desc</td>
-				<td>op code</td>
+				<td>Intp</td>
+				<td></td>
+				<td>Pops stack and prints i as a signed integer</td>
+				<td>I</td>
 			</tr>
 			<tr>
-				<td>inst</td>
-				<td>arg1</td>
-				<td>arg2</td>
-				<td>desc</td>
-				<td>op code</td>
+				<td>Cmp</td>
+				<td></td>
+				<td>Pops stack twice, and pushes cmp(j,i)(0 if i==j, otherwise sign(j-i))</td>
+				<td>J</td>
 			</tr>
 			<tr>
-				<td>inst</td>
-				<td>arg1</td>
-				<td>arg2</td>
-				<td>desc</td>
-				<td>op code</td>
+				<td>Store</td>
+				<td></td>
+				<td>Pops stack twice, stores j at heap[i]</td>
+				<td>K</td>
 			</tr>
 			<tr>
-				<td>inst</td>
-				<td>arg1</td>
-				<td>arg2</td>
-				<td>desc</td>
-				<td>op code</td>
+				<td>Mul</td>
+				<td></td>
+				<td>Pops stack twice, and pushes i*j</td>
+				<td>M</td>
+			</tr>
+			<tr>
+				<td>Strp</td>
+				<td></td>
+				<td>Pops stack and prints i%128 as a ascii character</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Sub</td>
+				<td></td>
+				<td>Pops stack twice, and pushes j-i</td>
+				<td>S</td>
+			</tr>
+			<tr>
+				<td>Div</td>
+				<td></td>
+				<td>Pops stack twice, and pushes j/i</td>
+				<td>V</td>
+			</tr>
+			<tr>
+				<td>Jz</td>
+				<td></td>
+				<td>Pops stack twice, increments ip by i if j==0</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Push</td>
+				<td>Int</td>
+				<td>Pushes arg1 onto the stack</td>
+				<td>a,b,c,d,e,f,g,h,i,j,A,M</td>
+			</tr>
+			<tr>
+				<td>Add</td>
+				<td>Int</td>
+				<td>Adds arg1 to the first element on the stack</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Ret</td>
+				<td>Int</td>
+				<td>Continue execution at ip=i</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Ret</td>
+				<td>Label</td>
+				<td>Continue execution at arg1</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Find</td>
+				<td>Int</td>
+				<td>Pushes the arg1 element of the stack</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Jmp</td>
+				<td>Int</td>
+				<td>Increases ip by i</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Jmp</td>
+				<td>Label</td>
+				<td>Continue execution at arg1</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Hop</td>
+				<td>Int</td>
+				<td>Moves arg1 element of stack to top</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Intp</td>
+				<td>Int</td>
+				<td>Print arg1 as an integer</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Cmp</td>
+				<td>Int</td>
+				<td>Pops stack, pushes cmp(i,arg1)</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Cmpn</td>
+				<td>Int</td>
+				<td>Pushes cmp(top element of stack,arg1)</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Store</td>
+				<td>Int</td>
+				<td>Pops stack, stores i at heap[arg1]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Store</td>
+				<td>Int,Int</td>
+				<td>Stores arg2 at heap[arg1]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Mul</td>
+				<td>Int</td>
+				<td>Pops stack, pushes i*arg1</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Strp</td>
+				<td>String</td>
+				<td>Prints string</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Sub</td>
+				<td>Int</td>
+				<td>Pops stack, pushes i-arg1</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Subi</td>
+				<td>Int</td>
+				<td>Pops stack, pushes arg1-i</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Div</td>
+				<td>Int</td>
+				<td>Pops stack, pushes i/arg1</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Divi</td>
+				<td>Int</td>
+				<td>Pops stack, pushes arg1/i</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Jz</td>
+				<td>Int</td>
+				<td>Pops stack, increments ip by arg1 if i==0</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Jz</td>
+				<td>Label</td>
+				<td>Pops stack, continues execution at arg1 if i==0</td>
+				<td></td>
 			</tr>
 		</table>
 		<p>P.S. If you have better suggestion for instruction names that relate to the op code do ping me</p>

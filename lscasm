@@ -1,0 +1,10 @@
+push 1
+push 2
+add
+add 1
+jmp abcd1342-3
+jmp    #hi
+jmp 1
+store 1,1
+store 2
+strp 'efcwec\'er\\'
