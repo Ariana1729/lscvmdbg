@@ -16,9 +16,6 @@ Features:
 ## ToDo
 
 * lscasm-\>lscvm
-  * Basic one to one op code translation
-  * Labels
-  * Simplifying pushing large numbers(i.e. `Push 81` -\> `jjM`)
   * Implement some sort of variable system
   * Implement some sort of function system
 * lscvm-\>lscasm
