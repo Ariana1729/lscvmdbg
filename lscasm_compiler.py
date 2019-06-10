@@ -1,5 +1,6 @@
 import re
 import sys
+from math import log
 
 def parse2clsc(lscasm,lscasmf):
     err=0#set to 1 if a instruction has error
@@ -91,6 +92,8 @@ def parse2clsc(lscasm,lscasmf):
                 print("[Error] Line %d : "%(i)+inst+' '+arg)
                 err=1
         clscasmf=open(lscasmf+'.clscasm','w')
+    if(err==1):
+        return lscasm,err
     for i in lscasm:
         clscasmf.write(i[0]+'|')
         for j in i[1:]:
@@ -99,7 +102,7 @@ def parse2clsc(lscasm,lscasmf):
     clscasmf.close()
     return lscasm,err
 
-def pushnum(n):#generates code that pushes n on the stack
+def pushnum(n):#generates code that pushes n on the stack i think can optimise a bit?
     n=int(n)
     s=''
     t=0
@@ -193,11 +196,52 @@ def parse2lsc(casm):
                 if(casm[i][1][1]=='i'):
                     lsc[i]=pushnum(casm[i][1][0])+"Z"
             elif(casm[i][0]=="label"):
-                labels.append([i,casm[i][1][0]])
+                if(casm[i][1][0] in labels):
+                    print "[Error] Duplicate label: "+casm[i][1][0]
+                    return
+                labels.append(casm[i][1][0])
                 lsc[i]=''
         elif(len(casm[i])==3):
             if(casm[i][0]=="store"):
                 lsc[i]=pushnum(casm[i][2][0])+pushnum(casm[i][1][0])+"K"
+
+    #settling jumps and labels REALLY NOT OPTIMISED
+    rjmpn=0
+    instl=0
+    for i in lsc:
+        if(i==None):
+            rjmpn+=1
+        else:
+            instl+=len(i)
+    #instl+4*rjmpl*rjmpn<9**rjmpl
+    rjmpl=int(log(instl)/log(9))+1
+    while(instl+4*rjmpl*rjmpn>=9**rjmpl):
+        rjmpl+=1#im lazy to newton rhapson lol
+    rjmpl*=4
+    ilen=0
+    labellen=[]
+    jmpslst=[]
+    for i in range(len(lsc)):
+        if(lsc[i]==None):
+            ilen+=rjmpl
+            jmpslst.append([i,ilen])
+        elif(lsc[i]==''):
+            labellen.append(ilen)
+        else:
+            ilen+=len(lsc[i])
+    for i in jmpslst:
+        if(casm[i[0]][0]=='ret'):
+            lsc[i[0]]=pushnum(labellen[labels.index(casm[i[0]][1][0])])
+            lsc[i[0]]+='n'*(rjmpl-len(lsc[i[0]])-1)
+            lsc[i[0]]+='C'
+        elif(casm[i[0]][0]=='jmp'):
+            lsc[i[0]]=pushnum(labellen[labels.index(casm[i[0]][1][0])]-i[1])
+            lsc[i[0]]+='n'*(rjmpl-len(lsc[i[0]])-1)
+            lsc[i[0]]+='G'
+        else:
+            lsc[i[0]]=pushnum(labellen[labels.index(casm[i[0]][1][0])]-i[1])
+            lsc[i[0]]+='n'*(rjmpl-len(lsc[i[0]])-1)
+            lsc[i[0]]+='Z'
     return ''.join(lsc)
 
 if(len(sys.argv)!=2):

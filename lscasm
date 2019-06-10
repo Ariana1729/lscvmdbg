@@ -1,9 +1,8 @@
-push 1
-push    2
-add
- add 1
-   LABEL1:label:#test
-jmp 0
-store 1,  1
- store   2
-strp 'efc wec\'er\\'
+jmp lab1
+Strp "Didn't jump :/" #should not show
+lab2:
+strP "World!" #to test jumpy
+break
+lab1:
+strP "Hello "
+ret lab2

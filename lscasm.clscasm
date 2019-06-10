@@ -1,9 +1,8 @@
-push|1,i|
-push|2,i|
-add|
-add|1,i|
-label|label1:label,l|
-jmp|0,i|
-store|1,i|1,i|
-store|2,i|
-strp|efc wec\'er\\,s|
+jmp|lab1,l|
+strp|Didn't jump :/,s|
+label|lab2,l|
+strp|World!,s|
+break|
+label|lab1,l|
+strp|Hello ,s|
+ret|lab2,l|
