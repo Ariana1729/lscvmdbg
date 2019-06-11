@@ -1,8 +1,1 @@
-jmp lab1
-Strp "Didn't jump :/" #should not show
-lab2:
-strP "World!" #to test jumpy
-break
-lab1:
-strP "Hello "
-ret lab2
+strp "cjMdAjMbAbSaFbjMeAjMfAnnZaFFbjMbAjMhAPaFbjMjMbAnnnnZaFbjMJbAdjMfAnnnnnnZbjMcAjMhAPhjMcAPbjMSahjMdASnnnnGbjMbAjMiAPhjMcAPbSabjMbAjMgASGDabjMgAjMdASGDcjMdAjMbAbSaFbjMhAnnnnnnZaFFPadjMfASnnnnG"

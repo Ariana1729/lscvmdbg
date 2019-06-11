@@ -1,0 +1,13 @@
+asm 'jjMhjMjhMbA'
+push 4
+loop1:
+  sub 1
+  find 0
+  jz loop1break
+  find 0
+  find
+  strp
+  jmp loop1
+loop1break:
+break
+

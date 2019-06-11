@@ -1,0 +1,12 @@
+asm|jjMhjMjhMbA,s|
+push|4,i|
+label|loop1,l|
+sub|1,i|
+find|0,i|
+jz|loop1break,l|
+find|0,i|
+find|
+strp|
+jmp|loop1,l|
+label|loop1break,l|
+break|

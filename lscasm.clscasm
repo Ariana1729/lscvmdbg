@@ -1,8 +1,1 @@
-jmp|lab1,l|
-strp|Didn't jump :/,s|
-label|lab2,l|
-strp|World!,s|
-break|
-label|lab1,l|
-strp|Hello ,s|
-ret|lab2,l|
+strp|cjMdAjMbAbSaFbjMeAjMfAnnZaFFbjMbAjMhAPaFbjMjMbAnnnnZaFbjMJbAdjMfAnnnnnnZbjMcAjMhAPhjMcAPbjMSahjMdASnnnnGbjMbAjMiAPhjMcAPbSabjMbAjMgASGDabjMgAjMdASGDcjMdAjMbAbSaFbjMhAnnnnnnZaFFPadjMfASnnnnG,s|

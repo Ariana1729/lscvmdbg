@@ -8,7 +8,7 @@ def parse2clsc(lscasm,lscasmf):
     argn=["break","del","erase"]#no arg
     argi=["push"]#int
     argni=["add","find","hop","intp","cmp","mul","sub","div"]#no arg,int
-    argns=["strp"]#no arg,string
+    argns=["strp","asm"]#no arg,string
     argnil=["ret","jmp","jz"]#no arg,string,label
     argnid=["store"]#no arg,int,[int,int]
     #regex setup
@@ -195,6 +195,8 @@ def parse2lsc(casm):
             elif(casm[i][0]=="jz"):
                 if(casm[i][1][1]=='i'):
                     lsc[i]=pushnum(casm[i][1][0])+"Z"
+            elif(casm[i][0]=="asm"):
+                lsc[i]=casm[i][1][0]
             elif(casm[i][0]=="label"):
                 if(casm[i][1][0] in labels):
                     print "[Error] Duplicate label: "+casm[i][1][0]
@@ -218,6 +220,10 @@ def parse2lsc(casm):
     while(instl+4*rjmpl*rjmpn>=9**rjmpl):
         rjmpl+=1#im lazy to newton rhapson lol
     rjmpl*=4
+    #.
+    #THIS IS FOR THE QUINE
+    #.
+    rjmpl=4*3
     ilen=0
     labellen=[]
     jmpslst=[]
