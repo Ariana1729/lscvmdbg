@@ -1,1 +1,13 @@
-strp|cjMdAjMbAbSaFbjMeAjMfAnnZaFFbjMbAjMhAPaFbjMjMbAnnnnZaFbjMJbAdjMfAnnnnnnZbjMcAjMhAPhjMcAPbjMSahjMdASnnnnGbjMbAjMiAPhjMcAPbSabjMbAjMgASGDabjMgAjMdASGDcjMdAjMbAbSaFbjMhAnnnnnnZaFFPadjMfASnnnnG,s|
+jmp|label1,l|
+label|!@#$%^&*(),l|
+intp|1729,i|
+break|
+label|l4b3l,l|
+strp|Made by Ariana ,s|
+push|0,i|
+jz|!@#$%^&*(),l|
+label|label1,l|
+strp|LSCASM ,s|
+push|10,i|
+strp|
+ret|l4b3l,l|

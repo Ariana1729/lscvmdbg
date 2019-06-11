@@ -20,12 +20,12 @@ loop2: #prints n-1 characters
       sub 9
     jmp loop1
     smaller:
-      strp "bA"
-      sub 1
-    jmp loop1
-  loop1break:
-  del
-  jmp loop2
+      strp "bA" #        NOTE
+      sub 1     #        11 Jun 2019
+    jmp loop1   #        In lscasm_compiler.py
+  loop1break:   #        Change rjmpl to 12 after
+  del           #        after the program change rjmpl
+  jmp loop2     #        in function parse2lsc
 loop2break:
 del
 printstack:

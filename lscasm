@@ -1,1 +1,13 @@
-strp "cjMdAjMbAbSaFbjMeAjMfAnnZaFFbjMbAjMhAPaFbjMjMbAnnnnZaFbjMJbAdjMfAnnnnnnZbjMcAjMhAPhjMcAPbjMSahjMdASnnnnGbjMbAjMiAPhjMcAPbSabjMbAjMgASGDabjMgAjMdASGDcjMdAjMbAbSaFbjMhAnnnnnnZaFFPadjMfASnnnnG"
+jmp label1
+!@#$%^&*():   # as long spaces dun exist
+INTP 1729
+break
+l4b3l: #weird label ik
+sTrp "Made by Ariana "
+  push         0
+ jz !@#$%^&*()
+  label1:
+strp "LSCASM "
+push 10
+strp #yea i didnt bother implementing escape stringsss 
+ret l4b3l

@@ -220,10 +220,6 @@ def parse2lsc(casm):
     while(instl+4*rjmpl*rjmpn>=9**rjmpl):
         rjmpl+=1#im lazy to newton rhapson lol
     rjmpl*=4
-    #.
-    #THIS IS FOR THE QUINE
-    #.
-    rjmpl=4*3
     ilen=0
     labellen=[]
     jmpslst=[]
