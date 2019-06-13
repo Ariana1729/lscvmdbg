@@ -172,9 +172,9 @@ def lscasm(op):
         if(len(stack)==0):
             s="Jz"
         elif(len(stack)==1):
-            s=pad("Jz",ilen)+"# Jz %d -> %p  "%(stack[-1],ip+stack[-1]+1)+"(? taken)"
+            s=pad("Jz",ilen)+"# Jz %d -> %d  "%(stack[-1],ip+stack[-1]+1)+"(? taken)"
         else:
-            s=pad("Jz",ilen)+"# Jz %d -> %d  "%(stack[-1],ip+stack[-1]+1)+"(Taken)" if stack[-2]==0 else "(Not taken)"
+            s=pad("Jz",ilen)+"# Jz %d -> %d  "%(stack[-1],ip+stack[-1]+1)+("(Taken)" if stack[-2]==0 else "(Not taken)")
     elif op=='a':
         s="Push 0"
     elif op=='b':
@@ -221,32 +221,19 @@ def execvm(code,dbg):
                 print("-"*46+"code")
                 for i in range(ip-4,ip+5):
                     if(i<0 or i>=codelen):
-                        print("%d"%(i)+" "*(10-len(str(i)))+"NIL")
+                        print("%d"%(i)+" "*(15-len(str(i)))+"NIL")
                     elif(i==ip):
-                        print(">%d"%(i)+" "*(9-len(str(i)))+lscasm(code[i]))
+                        print(">%d"%(i)+" <"+code[i]+">"+" "*(10-len(str(i)))+lscasm(code[i]))
                     else:
-                        print("%d"%(i)+" "*(10-len(str(i)))+lscasm(code[i]))
+                        print("%d"%(i)+" <"+code[i]+">"+" "*(11-len(str(i)))+lscasm(code[i]))
                 print("[-] Input debugger instructions")
                 inp=raw_input()
                 if(inp==''):
                     inp=hist
                 else:
                     hist=inp
-                if(inp=='H' or inp=='h'):
-                    print("[-] Debugger instructions:")
-                    print("b [num] - add breakpoint at [num]")
-                    print("bd [num] - deletes breakpoint at [num]")
-                    print("bl - list breakpoints")
-                    print("c - Continue")
-                    print("s - Steps 1 instruction")
-                    print("s [num] - Steps [num] instructions")
-                    print("q - quits debugger")
-                    print("xh - Prints locations of elemnts in heap")
-                    print("xh [a] [b] - Prints heap[a:b]")
-                    print("xs - Prints whole stack")
-                    print("xs [a] - Prints top [a] elements of stack")
-                    print("xs [a] [b] - Prints top [b] element starting from [a]")
-                elif(inp[0]=='B' or inp[0]=='b'):
+                inp=inp.lower()
+                if(inp[0]=='b'):
                     if(inp[1]==' '):
                         try:
                             inp=int(inp[2:])
@@ -259,7 +246,7 @@ def execvm(code,dbg):
                                 print("[-] Added breakpoint %d at %d"%(len(breaks),inp))
                         except:
                             print("[Error] Invalid format")
-                    elif(inp[1]=='D' or inp[1]=='d'):
+                    elif(inp[1]=='d'):
                         try:
                             inp=int(inp[2:])
                             if(inp in breaks):
@@ -269,17 +256,35 @@ def execvm(code,dbg):
                                 print("[Error] No breakpoint at %d"%(inp))
                         except:
                             print("[Error] Invalid format")
-                    elif(inp[1]=='L' or inp[1]=='l'):
+                    elif(inp[1]=='l'):
                         for i in range(len(breaks)):
                             print("Breakpoint %d at %d"%(i+1,breaks[i]))
-                elif(inp=='C' or inp=='c'):
+                elif(inp=='c'):
                     print("[-] Continuing execution")
                     stepnum=-1
                     break
-                elif(inp=='Q' or inp=='q'):
+                elif(inp=='h'):
+                    print("[-] Debugger instructions:")
+                    print("b [num] - add breakpoint at [num]")
+                    print("bd [num] - deletes breakpoint at [num]")
+                    print("bl - list breakpoints")
+                    print("c - Continue")
+                    print("q - quits debugger")
+                    print("s - Steps 1 instruction")
+                    print("s [num] - Steps [num] instructions")
+                    print("xc - Prints code")
+                    print("xc [a] [b] - Prints code[a:b]")
+                    print("xh - Prints locations of elemnts in heap")
+                    print("xh [a] [b] - Prints heap[a:b]")
+                    print("xi - Prints code as lscasm")
+                    print("xi [a] [b] - Prints code[a:b] as lscasm")
+                    print("xs - Prints whole stack")
+                    print("xs [a] - Prints top [a] elements of stack")
+                    print("xs [a] [b] - Prints top [b] element starting from [a]") 
+                elif(inp=='q'):
                     print("[-] Debugger stopped")
                     return
-                elif(inp[0]=='S' or inp[0]=='s'):
+                elif(inp[0]=='s'):
                     try:
                         if(inp[2:4]=='0x'):
                             stepnum=int(inp[4:])
@@ -288,8 +293,69 @@ def execvm(code,dbg):
                     except:
                         stepnum=1
                     print("[-] Stepping %d instructions"%(stepnum))
-                elif(inp[0]=='X' or inp[0]=='x'):
-                    if(inp[1]=='S' or inp[1]=='s'):
+                elif(inp[0]=='x'):
+                    if(inp[1]=='c'):
+                        if(len(inp)<3):
+                            for i in range(len(code)):
+                                print("%d"%(i)+" "*(8-len(str(i)))+code[i])
+                        else:
+                            inp=inp[2:].split(' ')
+                            try:
+                                inp[1]=int(inp[1])
+                                inp[2]=int(inp[2])
+                                if(inp[1]>inp[2]):
+                                    print("[Error] Upper bound lower than lower bound, swopping both")
+                                    inp[1]^=inp[2]
+                                    inp[2]^=inp[1]
+                                    inp[1]^=inp[2]
+                                if(inp[2]>len(code)):
+                                    print("[Error] Upper bound is too large, code length is (%d)"%(len(code)))
+                                    inp[2]=len(code)
+                                for i in range(inp[1],inp[2]):
+                                    print("%d"%(i)+" "*(8-len(str(i)))+code[i])
+                            except:
+                                print("[Error] Invaid format")
+                    elif(inp[1]=='h'):
+                        if(len(inp)<3):
+                            for i in range(len(heap)):
+                                if(heap[i]!=None):
+                                    print("heap[%d]=%d"%(i,heap[i]))
+                        else:
+                            inp=inp[2:].split(' ')
+                            try:
+                                inp[1]=int(inp[1])
+                                inp[2]=int(inp[2])
+                                if(inp[1]>inp[2]):
+                                    print("[Error] Upper bound lower than lower bound, swopping both")
+                                    inp[1]^=inp[2]
+                                    inp[2]^=inp[1]
+                                    inp[1]^=inp[2]
+                                print(heap[inp[1]:inp[2]])
+                            except:
+                                print("[Error] Invaid format")
+                    elif(inp[1]=='i'):
+                        if(len(inp)<3):
+                            for i in range(len(code)):
+                                print("%d"%(i)+" <"+code[i]+">"+" "*(11-len(str(i)))+lscasm(code[i]))
+                        else:
+                            inp=inp[2:].split(' ')
+                            try:
+                                inp[1]=int(inp[1])
+                                inp[2]=int(inp[2])
+                                if(inp[1]>inp[2]):
+                                    print("[Error] Upper bound lower than lower bound, swopping both")
+                                    inp[1]^=inp[2]
+                                    inp[2]^=inp[1]
+                                    inp[1]^=inp[2]
+                                if(inp[2]>len(code)):
+                                    print("[Error] Upper bound is too large, code length is (%d)"%(len(code)))
+                                    inp[2]=len(code)
+                                for i in range(inp[1],inp[2]):
+                                    print("%d"%(i)+" <"+code[i]+">"+" "*(11-len(str(i)))+lscasm(code[i]))
+                            except:
+                                print("[Error] Invaid format")
+
+                    elif(inp[1]=='s'):
                         if(len(inp)<3):
                             print(stack)
                         else:
@@ -303,18 +369,13 @@ def execvm(code,dbg):
                                     print(stack[-1-int(inp[1])-int(inp[2]):-1-int(inp[1])])
                             except:
                                 print("[Error] Invaid format")
-                    elif(inp[1]=='H' or inp[1]=='h'):
-                        if(len(inp)<3):
-                            for i in range(len(heap)):
-                                if(heap[i]!=None):
-                                    print("heap[%d]=%d"%(i,heap[i]))
-                        else:
-                            inp=inp[2:].split(' ')
-                            try:
-                                print(heap[int(inp[1]):int(inp[2])])
-                            except:
-                                print("[Error] Invaid format")
-        execvminst(code[ip])
+
+        try:
+            execvminst(code[ip])
+        except Exception as e:
+            print("[Segfault]")
+            print(e)
+            break
         ip+=1
         cycles+=1
         if(cycles>0x800000):
@@ -326,17 +387,94 @@ def execvm(code,dbg):
     print("")
     print("[-] Prgram terminated")
     if(dbg):
+        print("[-] IP = %d"%(ip))
+    hist='h'
+    while(dbg):
         print("[-] Input debugger instructions")
         inp=raw_input()
-        if(inp=='H' or inp=='h'):
+        if(inp==''):
+            inp=hist
+        else:
+            hist=inp
+        inp=inp.lower()
+        if(inp=='h'):
             print("[-] Debugger instructions:")
             print("q - quits debugger")
-            print("xh [a] [b] - Prints heap[a:b] Default prints locations and elements of heap")
+            print("xc - Prints code")
+            print("xc [a] [b] - Prints code[a:b]")
+            print("xh - Prints locations of elemnts in heap")
+            print("xh [a] [b] - Prints heap[a:b]")
+            print("xi - Prints code as lscasm")
+            print("xi [a] [b] - Prints code[a:b] as lscasm")
             print("xs - Prints whole stack")
             print("xs [a] - Prints top [a] elements of stack")
-            print("xs [a] [b] - Prints top [b] element starting from [a]")
-        elif(inp[0]=='X' or inp[0]=='x'):
-            if(inp[1]=='S' or inp[1]=='s'):
+            print("xs [a] [b] - Prints top [b] element starting from [a]") 
+        elif(inp=='q'):
+            print("[-] Debugger stopped")
+            return
+        elif(inp[0]=='x'):
+            if(inp[1]=='c'):
+                if(len(inp)<3):
+                    for i in range(len(code)):
+                        print("%d"%(i)+" "*(8-len(str(i)))+code[i])
+                else:
+                    inp=inp[2:].split(' ')
+                    try:
+                        inp[1]=int(inp[1])
+                        inp[2]=int(inp[2])
+                        if(inp[1]>inp[2]):
+                            print("[Error] Upper bound lower than lower bound, swopping both")
+                            inp[1]^=inp[2]
+                            inp[2]^=inp[1]
+                            inp[1]^=inp[2]
+                        if(inp[2]>len(code)):
+                            print("[Error] Upper bound is too large, code length is (%d)"%(len(code)))
+                            inp[2]=len(code)
+                        for i in range(inp[1],inp[2]):
+                            print("%d"%(i)+" "*(8-len(str(i)))+code[i])
+                    except:
+                        print("[Error] Invaid format")
+            elif(inp[1]=='h'):
+                if(len(inp)<3):
+                    for i in range(len(heap)):
+                        if(heap[i]!=None):
+                            print("heap[%d]=%d"%(i,heap[i]))
+                else:
+                    inp=inp[2:].split(' ')
+                    try:
+                        inp[1]=int(inp[1])
+                        inp[2]=int(inp[2])
+                        if(inp[1]>inp[2]):
+                            print("[Error] Upper bound lower than lower bound, swopping both")
+                            inp[1]^=inp[2]
+                            inp[2]^=inp[1]
+                            inp[1]^=inp[2]
+                        print(heap[inp[1]:inp[2]])
+                    except:
+                        print("[Error] Invaid format")
+            elif(inp[1]=='i'):
+                if(len(inp)<3):
+                    for i in range(len(code)):
+                        print("%d"%(i)+" <"+code[i]+">"+" "*(11-len(str(i)))+lscasm(code[i]))
+                else:
+                    inp=inp[2:].split(' ')
+                    try:
+                        inp[1]=int(inp[1])
+                        inp[2]=int(inp[2])
+                        if(inp[1]>inp[2]):
+                            print("[Error] Upper bound lower than lower bound, swopping both")
+                            inp[1]^=inp[2]
+                            inp[2]^=inp[1]
+                            inp[1]^=inp[2]
+                        if(inp[2]>len(code)):
+                            print("[Error] Upper bound is too large, code length is (%d)"%(len(code)))
+                            inp[2]=len(code)
+                        for i in range(inp[1],inp[2]):
+                            print("%d"%(i)+" <"+code[i]+">"+" "*(11-len(str(i)))+lscasm(code[i]))
+                    except:
+                        print("[Error] Invaid format")
+
+            elif(inp[1]=='s'):
                 if(len(inp)<3):
                     print(stack)
                 else:
@@ -349,29 +487,16 @@ def execvm(code,dbg):
                         else:
                             print(stack[-1-int(inp[1])-int(inp[2]):-1-int(inp[1])])
                     except:
-                        print("[-] Invaid format")
-            elif(inp[1]=='H' or inp[1]=='h'):
-                if(len(inp)<3):
-                    heapelem=[]
-                    for i in range(len(heap)):
-                        if(heap[i]!=None):
-                            heapelem.append((i,heap[i]))
-                    print heapelem
-                else:
-                    inp=inp[2:].split(' ')
-                    try:
-                        print(heap[int(inp[1]):int(inp[2])])
-                    except:
-                        print("[-] Invaid format")
-        elif(inp=='Q' or inp=='q'):
-            print("[-] Debugger stopped")
-            return
+                        print("[Error] Invaid format")
     return
 
 def init():
     global heap,stack,ip,cycles,codelen
-    print("[-] Enter vm code")
-    code=raw_input()
+    if(len(sys.argv)==2):
+        code=open(sys.argv[1],'r').read()
+    else:
+        print("[-] Enter vm code")
+        code=raw_input()
     print("[-] [R]unning or [D]ebugging code?")
     inp=raw_input()
     while True:

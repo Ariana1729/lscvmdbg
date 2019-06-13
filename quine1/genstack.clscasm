@@ -1,0 +1,29 @@
+asm|abcdef,s|	abcdef
+push|7,i|	h
+label|loop2,l|	
+sub|1,i|	bS
+find|0,i|	aF
+jz|loop2break,l|	bjMeAjMfAnnZ
+find|0,i|	aF
+find|	F
+strp|a,s|	bjMbAjMhAP
+label|loop1,l|	
+find|0,i|	aF
+jz|loop1break,l|	bjMjMbAnnnnZ
+find|0,i|	aF
+cmp|9,i|	bjMJ
+add|1,i|	bA
+jz|smaller,l|	djMfAnnnnnnZ
+strp|jA,s|	bjMcAjMhAPhjMcAP
+sub|9,i|	bjMS
+jmp|loop1,l|	ahjMdASnnnnG
+label|smaller,l|	
+strp|bA,s|	bjMbAjMiAPhjMcAP
+sub|1,i|	bS
+jmp|loop1,l|	abjMbAjMgASG
+label|loop1break,l|	
+del|	D
+jmp|loop2,l|	abjMgAjMdASG
+label|loop2break,l|	
+
+abcdefhbSaFbjMeAjMfAnnZaFFbjMbAjMhAPaFbjMjMbAnnnnZaFbjMJbAdjMfAnnnnnnZbjMcAjMhAPhjMcAPbjMSahjMdASnnnnGbjMbAjMiAPhjMcAPbSabjMbAjMgASGDabjMgAjMdASG

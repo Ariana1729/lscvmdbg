@@ -1,0 +1,13 @@
+asm|jjMhjMjhMbA,s|	jjMhjMjhMbA
+push|4,i|	e
+label|loop1,l|	
+sub|1,i|	bS
+find|0,i|	aF
+jz|12,i|	bjMdAZ
+find|0,i|	aF
+find|	F
+strp|	P
+jmp|-22,i|	acjMeASG
+label|loop1break,l|	
+
+jjMhjMjhMbAebSaFbjMdAZaFFPacjMeASG

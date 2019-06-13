@@ -2,18 +2,18 @@ import re
 import sys
 from math import log
 
-def parse2clsc(lscasm,lscasmf):
+def parse2clsc(lscasm):
     err=0#set to 1 if a instruction has error
     #types of inst
     argn=["break","del","erase"]#no arg
-    argi=["push"]#int
+    argis=["push"]#int,string
     argni=["add","find","hop","intp","cmp","mul","sub","div"]#no arg,int
     argns=["strp","asm"]#no arg,string
     argnil=["ret","jmp","jz"]#no arg,string,label
     argnid=["store"]#no arg,int,[int,int]
     #regex setup
     ren=re.compile('^\s*(#.*|)$')
-    rei=re.compile('^\s*(\d+)\s*(#.*|)$')#first group
+    rei=re.compile('^\s*(-{0,1}\d+)\s*(#.*|)$')#first group
     res=re.compile('^\s*(["\'])((\\\\{2})*|(.*?[^\\\\](\\\\{2})*))\\1\s*(#.*|)$')#second group
     rel=re.compile('^\s*(\S+)\s*(#.*|)$')#first group
     red=re.compile('^\s*(\d+)\s*,\s*(\d+)\s*(#.*|)$')#first and second group
@@ -30,10 +30,13 @@ def parse2clsc(lscasm,lscasmf):
             else:
                 print("[Error] Line %d : "%(i)+inst+' '+arg)
                 err=1
-        elif inst in argi:
+        elif inst in argis:
             remi=rei.match(arg)
+            rems=res.match(arg)
             if(remi):
                 lscasm[i]=[inst,[remi.group(1),'i']]
+            elif(rems):
+                lscasm[i]=[inst,[rems.group(2),'s']]
             else:
                 print("[Error] Line %d : "%(i)+inst+' '+arg)
                 err=1
@@ -91,16 +94,8 @@ def parse2clsc(lscasm,lscasmf):
             else:
                 print("[Error] Line %d : "%(i)+inst+' '+arg)
                 err=1
-        clscasmf=open(lscasmf+'.clscasm','w')
-    if(err==1):
-        return lscasm,err
-    for i in lscasm:
-        clscasmf.write(i[0]+'|')
-        for j in i[1:]:
-            clscasmf.write(j[0]+','+j[1]+'|')
-        clscasmf.write('\n')
-    clscasmf.close()
     return lscasm,err
+
 
 def pushnum(n):#generates code that pushes n on the stack i think can optimise a bit?
     n=int(n)
@@ -163,7 +158,12 @@ def parse2lsc(casm):
                 lsc[i]="Z"
         elif(len(casm[i])==2):
             if(casm[i][0]=="push"):
-                lsc[i]=pushnum(casm[i][1][0])
+                if(casm[i][1][1]=='i'):
+                    lsc[i]=pushnum(casm[i][1][0])
+                elif(casm[i][1][1]=='s'):
+                    lsc[i]=''
+                    for j in casm[i][1][0]:
+                        lsc[i]+=pushnum(ord(j))
             elif(casm[i][0]=="add"):
                 lsc[i]=pushnum(casm[i][1][0])+"A"
             elif(casm[i][0]=="ret"):
@@ -244,7 +244,7 @@ def parse2lsc(casm):
             lsc[i[0]]=pushnum(labellen[labels.index(casm[i[0]][1][0])]-i[1])
             lsc[i[0]]+='n'*(rjmpl-len(lsc[i[0]])-1)
             lsc[i[0]]+='Z'
-    return ''.join(lsc)
+    return lsc
 
 if(len(sys.argv)!=2):
     print("Format: python2 "+sys.argv[0]+" filename")
@@ -256,11 +256,29 @@ if(lscasmf[:-8]==".clscasm"):
     exit()
 
 lscasm=open(lscasmf,'r').read()
+clscasmf=open(lscasmf+'.clscasm','w')
 
-casm,err=parse2clsc(lscasm,lscasmf)
+casm,err=parse2clsc(lscasm)
 if(err==1):
+    for i in casm:
+        clscasmf.write(i[0]+'|')
+        for j in i[1:]:
+            clscasmf.write(j[0]+','+j[1]+'|')
+        clscasmf.write('\n')
+    clscasmf.close()
     exit()
 
+
+
 lsc=parse2lsc(casm)
-print lsc
+print ''.join(lsc)
+ilen=0
+for i in range(len(casm)):
+    clscasmf.write(casm[i][0]+'|')
+    for j in casm[i][1:]:
+        clscasmf.write(j[0]+','+j[1]+'|')
+    clscasmf.write('\t'+str(ilen)+':\t'+lsc[i]+'\n')
+    ilen+=len(lsc[i])
+clscasmf.write('\n'+''.join(lsc))
+clscasmf.close()
 
