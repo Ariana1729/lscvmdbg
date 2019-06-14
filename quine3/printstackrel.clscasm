@@ -1,0 +1,15 @@
+push|1,i|	0:	b
+push|4,i|	1:	e
+label|loop1,l|	2:	
+sub|1,i|	2:	bS
+find|0,i|	4:	aF
+jz|16,i|	6:	bjMhAZ
+find|0,i|	12:	aF
+find|	14:	F
+asm|iiM,s|	15:	iiM
+add|	18:	A
+strp|	19:	P
+jmp|-26,i|	20:	acjMiASG
+label|loop1break,l|	28:	
+
+bebSaFbjMhAZaFFiiMAPacjMiASG

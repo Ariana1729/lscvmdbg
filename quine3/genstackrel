@@ -1,0 +1,143 @@
+push 34 #print '\n'.join('push '+str(ord(i)-0x40) for i in s)
+push 42
+push 13
+push 37
+push 1
+push 42
+push 13
+push 38
+push 1
+push 34
+push 19
+push 33
+push 6
+push 40
+push 42
+push 13
+push 36
+push 1
+push 26
+push 33
+push 6
+push 6
+push 33
+push 6
+push 42
+push 22
+push 33
+push 6
+push 34
+push 42
+push 13
+push 34
+push 1
+push 42
+push 13
+push 40
+push 1
+push 1
+push 16
+push 34
+push 42
+push 13
+push 35
+push 1
+push 42
+push 13
+push 40
+push 1
+push 16
+push 41
+push 42
+push 13
+push 38
+push 1
+push 16
+push 34
+push 42
+push 13
+push 13
+push 19
+push 34
+push 42
+push 13
+push 34
+push 1
+push 42
+push 13
+push 40
+push 1
+push 1
+push 16
+push 40
+push 42
+push 13
+push 35
+push 1
+push 16
+push 33
+push 41
+push 42
+push 13
+push 37
+push 1
+push 19
+push 7
+push 4
+push 34
+push 42
+push 13
+push 37
+push 1
+push 42
+push 13
+push 38
+push 1
+push 34
+push 19
+push 33
+push 6
+push 34
+push 42
+push 13
+push 40
+push 1
+push 26
+push 33
+push 6
+push 6
+push 41
+push 41
+push 13
+push 1
+push 16
+push 33
+push 35
+push 42
+push 13
+push 41
+push 1
+push 19
+push 7
+push 122 #n
+loop1: #prints n-1 characters
+  sub 1
+  find 0
+  jz 66#jz loop1break
+  find 0
+  find
+  find 0
+  asm "j"
+  div
+  find 0
+  add 97
+  strp
+  strp "jM"
+  mul 9
+  sub
+  add 97
+  strp
+  strp "A"
+  jmp -76#jmp loop1
+loop1break:
+

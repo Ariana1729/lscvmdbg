@@ -1,0 +1,36 @@
+asm "djMhAejMgAbjMeAejMbAajMbAejMgAbjMeAejMcAajMbAdjMhAcjMbAdjMgAajMgAejMeAejMgAbjMeAejMaAajMbAcjMiAdjMgAajMgAajMgAdjMgAajMgAejMgAcjMeAdjMgAajMgAdjMhAejMgAbjMeAdjMhAajMbAejMgAbjMeAejMeAajMbAajMbAbjMhAdjMhAejMgAbjMeAdjMiAajMbAejMgAbjMeAejMeAajMbAbjMhAejMfAejMgAbjMeAejMcAajMbAbjMhAdjMhAejMgAbjMeAbjMeAcjMbAdjMhAejMgAbjMeAdjMhAajMbAejMgAbjMeAejMeAajMbAajMbAbjMhAejMeAejMgAbjMeAdjMiAajMbAbjMhAdjMgAejMfAejMgAbjMeAejMbAajMbAcjMbAajMhAajMeAdjMhAejMgAbjMeAejMbAajMbAejMgAbjMeAejMcAajMbAdjMhAcjMbAdjMgAajMgAdjMhAejMgAbjMeAejMeAajMbAcjMiAdjMgAajMgAajMgAejMfAejMfAbjMeAajMbAbjMhAdjMgAdjMiAejMgAbjMeAejMfAajMbAcjMbAajMhA"
+push 122 #n
+loop1: #prints n-1 characters
+  sub 1
+  find 0
+  jz 66#jz loop1break
+  find 0
+  find
+  find 0
+  asm "j"
+  div
+  find 0
+  add 97
+  strp
+  strp "jM"
+  mul 9
+  sub
+  add 97
+  strp
+  strp "A"
+  jmp -76#jmp loop1
+loop1break:
+del
+push 122
+loop2:
+  sub 1
+  find 0
+  jz 16#jz loop2break
+  find 0
+  find
+  asm "iiM"#push 64
+  add
+  strp
+  jmp -26#jmp loop2
+loop2break:
+

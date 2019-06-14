@@ -1,22 +1,8 @@
-jmp|label1,l|	0:	bjMiAjMfAnnG
-label|!@#$%^&*(),l|	12:	
-intp|1729,i|	12:	cjMdAjMdAjMbAI
-break|	26:	B
-label|l4b3l,l|	27:	
-strp|Made by Ariana ,s|	27:	ijMfAPbjMbAjMhAPbjMcAjMbAPbjMcAjMcAPdjMfAPbjMbAjMiAPbjMeAjMeAPdjMfAPhjMcAPbjMdAjMgAPbjMcAjMgAPbjMbAjMhAPbjMdAjMcAPbjMbAjMhAPdjMfAP
-push|0,i|	157:	a
-jz|!@#$%^&*(),l|	158:	abjMiAjMfASZ
-label|label1,l|	170:	
-push| MSACSL,s|	170:	djMfAijMfAbjMjMcAhjMcAhjMeAbjMjMcAijMeA
-strp|	209:	P
-strp|	210:	P
-strp|	211:	P
-strp|	212:	P
-strp|	213:	P
-strp|	214:	P
-strp|	215:	P
-push|10,i|	216:	bjMbA
-strp|	221:	P
-ret|l4b3l,l|	222:	djMnnnnnnnnC
+push|1,i|	0:	b
+push|%,s|	1:	ejMbA
+store|	6:	K
+push|2,i|	7:	c
+push|x,s|	8:	bjMeAjMdA
+store|	17:	K
 
-bjMiAjMfAnnGcjMdAjMdAjMbAIBijMfAPbjMbAjMhAPbjMcAjMbAPbjMcAjMcAPdjMfAPbjMbAjMiAPbjMeAjMeAPdjMfAPhjMcAPbjMdAjMgAPbjMcAjMgAPbjMbAjMhAPbjMdAjMcAPbjMbAjMhAPdjMfAPaabjMiAjMfASZdjMfAijMfAbjMjMcAhjMcAhjMeAbjMjMcAijMeAPPPPPPPbjMbAPdjMnnnnnnnnC
+bejMbAKcbjMeAjMdAK

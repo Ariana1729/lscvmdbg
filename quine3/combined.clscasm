@@ -1,0 +1,37 @@
+asm|djMhAejMgAbjMeAejMbAajMbAejMgAbjMeAejMcAajMbAdjMhAcjMbAdjMgAajMgAejMeAejMgAbjMeAejMaAajMbAcjMiAdjMgAajMgAajMgAdjMgAajMgAejMgAcjMeAdjMgAajMgAdjMhAejMgAbjMeAdjMhAajMbAejMgAbjMeAejMeAajMbAajMbAbjMhAdjMhAejMgAbjMeAdjMiAajMbAejMgAbjMeAejMeAajMbAbjMhAejMfAejMgAbjMeAejMcAajMbAbjMhAdjMhAejMgAbjMeAbjMeAcjMbAdjMhAejMgAbjMeAdjMhAajMbAejMgAbjMeAejMeAajMbAajMbAbjMhAejMeAejMgAbjMeAdjMiAajMbAbjMhAdjMgAejMfAejMgAbjMeAejMbAajMbAcjMbAajMhAajMeAdjMhAejMgAbjMeAejMbAajMbAejMgAbjMeAejMcAajMbAdjMhAcjMbAdjMgAajMgAdjMhAejMgAbjMeAejMeAajMbAcjMiAdjMgAajMgAajMgAejMfAejMfAbjMeAajMbAbjMhAdjMgAdjMiAejMgAbjMeAejMfAajMbAcjMbAajMhA,s|	0:	djMhAejMgAbjMeAejMbAajMbAejMgAbjMeAejMcAajMbAdjMhAcjMbAdjMgAajMgAejMeAejMgAbjMeAejMaAajMbAcjMiAdjMgAajMgAajMgAdjMgAajMgAejMgAcjMeAdjMgAajMgAdjMhAejMgAbjMeAdjMhAajMbAejMgAbjMeAejMeAajMbAajMbAbjMhAdjMhAejMgAbjMeAdjMiAajMbAejMgAbjMeAejMeAajMbAbjMhAejMfAejMgAbjMeAejMcAajMbAbjMhAdjMhAejMgAbjMeAbjMeAcjMbAdjMhAejMgAbjMeAdjMhAajMbAejMgAbjMeAejMeAajMbAajMbAbjMhAejMeAejMgAbjMeAdjMiAajMbAbjMhAdjMgAejMfAejMgAbjMeAejMbAajMbAcjMbAajMhAajMeAdjMhAejMgAbjMeAejMbAajMbAejMgAbjMeAejMcAajMbAdjMhAcjMbAdjMgAajMgAdjMhAejMgAbjMeAejMeAajMbAcjMiAdjMgAajMgAajMgAejMfAejMfAbjMeAajMbAbjMhAdjMgAdjMiAejMgAbjMeAejMfAajMbAcjMbAajMhA
+push|122,i|	605:	bjMeAjMfA
+label|loop1,l|	614:	
+sub|1,i|	614:	bS
+find|0,i|	616:	aF
+jz|66,i|	618:	hjMdAZ
+find|0,i|	624:	aF
+find|	626:	F
+find|0,i|	627:	aF
+asm|j,s|	629:	j
+div|	630:	V
+find|0,i|	631:	aF
+add|97,i|	633:	bjMbAjMhAA
+strp|	643:	P
+strp|jM,s|	644:	bjMcAjMhAPijMfAP
+mul|9,i|	660:	bjMM
+sub|	664:	S
+add|97,i|	665:	bjMbAjMhAA
+strp|	675:	P
+strp|A,s|	676:	hjMcAP
+jmp|-76,i|	682:	aijMeASG
+label|loop1break,l|	690:	
+del|	690:	D
+push|122,i|	691:	bjMeAjMfA
+label|loop2,l|	700:	
+sub|1,i|	700:	bS
+find|0,i|	702:	aF
+jz|16,i|	704:	bjMhAZ
+find|0,i|	710:	aF
+find|	712:	F
+asm|iiM,s|	713:	iiM
+add|	716:	A
+strp|	717:	P
+jmp|-26,i|	718:	acjMiASG
+label|loop2break,l|	726:	
+
+djMhAejMgAbjMeAejMbAajMbAejMgAbjMeAejMcAajMbAdjMhAcjMbAdjMgAajMgAejMeAejMgAbjMeAejMaAajMbAcjMiAdjMgAajMgAajMgAdjMgAajMgAejMgAcjMeAdjMgAajMgAdjMhAejMgAbjMeAdjMhAajMbAejMgAbjMeAejMeAajMbAajMbAbjMhAdjMhAejMgAbjMeAdjMiAajMbAejMgAbjMeAejMeAajMbAbjMhAejMfAejMgAbjMeAejMcAajMbAbjMhAdjMhAejMgAbjMeAbjMeAcjMbAdjMhAejMgAbjMeAdjMhAajMbAejMgAbjMeAejMeAajMbAajMbAbjMhAejMeAejMgAbjMeAdjMiAajMbAbjMhAdjMgAejMfAejMgAbjMeAejMbAajMbAcjMbAajMhAajMeAdjMhAejMgAbjMeAejMbAajMbAejMgAbjMeAejMcAajMbAdjMhAcjMbAdjMgAajMgAdjMhAejMgAbjMeAejMeAajMbAcjMiAdjMgAajMgAajMgAejMfAejMfAbjMeAajMbAbjMhAdjMgAdjMiAejMgAbjMeAejMfAajMbAcjMbAajMhAbjMeAjMfAbSaFhjMdAZaFFaFjVaFbjMbAjMhAAPbjMcAjMhAPijMfAPbjMMSbjMbAjMhAAPhjMcAPaijMeASGDbjMeAjMfAbSaFbjMhAZaFFiiMAPacjMiASG
